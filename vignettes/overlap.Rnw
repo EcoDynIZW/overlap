@@ -1,3 +1,6 @@
+% Note: compiling pdf required tinytex (Rstudio setting). Otherwise failed due 
+% missing latex packages (placeins etc)
+
 
 \documentclass[a4paper]{article}
 
@@ -16,6 +19,7 @@
 \usepackage{Sweave}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 \maketitle
 

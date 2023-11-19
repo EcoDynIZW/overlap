@@ -33,7 +33,7 @@ Mike Meredith.
 }
 \examples{
 # Check that sp and maptools packages are installed
-if(requireNamespace("sp") && requireNamespace("maptools")) {
+if(requireNamespace("sp") && requireNamespace("suntools")) {
   # Get example data:
   data(simCalls)
   str(simCalls)

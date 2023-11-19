@@ -23,15 +23,28 @@
 # a vector of sun times in radians, where sunrise = pi/2 and sunset = 3*pi/2
 
 sunTime <- function(clockTime, Dates, Coords) {
+  
+  if (!requireNamespace("suntools", quietly = TRUE)) {
+    stop("Please install the package suntools to run this function")
+  }
+  if (!requireNamespace("sp", quietly = TRUE)) {
+    stop("Please install the package sp to run this function")
+  }
   # Find sunset/sunrise times at location
-  sr <- maptools::sunriset(Coords, Dates, direct="sunrise") * 2 * pi  # radians
-  ss <- maptools::sunriset(Coords, Dates, direct="sunset") * 2 * pi
+  sr <- suntools::sunriset(crds = Coords, dateTime = Dates, direction ="sunrise") * 2 * pi  # radians
+  ss <- suntools::sunriset(crds = Coords, dateTime = Dates, direction ="sunset") * 2 * pi
+  
+  # maptools output was vector, suntools is data.frame. Convert to vector
+  sr <- sr[, 1]
+  ss <- ss[, 1]
+  
   # Which observations are 'day', get relevant values for day vs night
   day <- clockTime > sr & clockTime < ss
   startClock <- ifelse(day, sr, ss)  # either sunrise or sunset
   dayLength <- ss - sr
   span <- ifelse(day, dayLength, (2*pi) - dayLength)  # length of day or night
   startSun <- ifelse(day, pi/2, 3*pi/2) # start of day or night in sun-time units
+  
   # Get time since startClock, convert to sun time
   timeSince <- (clockTime - startClock + 2*pi) %% (2*pi)
   out <- startSun + timeSince / span * pi

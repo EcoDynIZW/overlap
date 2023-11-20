@@ -10,5 +10,7 @@ Description: Provides functions to fit kernel density functions to
  data on temporal activity patterns of animals; estimate coefficients
  of overlapping of densities for two species; and calculate bootstrap
  estimates of confidence intervals.
+URL: https://github.com/EcoDynIZW/overlap
+BugReports: https://github.com/EcoDynIZW/overlap
 License: GPL (>=3)
 NeedsCompilation: yes
